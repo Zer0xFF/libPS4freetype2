@@ -40,3 +40,7 @@ well, (1) there are few reasons, i dont actually have a hackable PS4 Console, (2
  
 ### Bugs ###
  - currently the the free'ing method in `finishPS4FreeType()` crashes on `free(face)`, so it's been commented out, not sure if there is something wrong, or a misunderstanding on my part
+ - the C++ wrapper has not been tested, but it's assumed to work, since it's a mere wrapper
+ 
+ ### Credit ###
+- Thanks to [@ZeraTron](https://github.com/ZeraTron) & [@Fx0day](https://github.com/fx0day) for testing for me (as I dont have a hackable PS4)
