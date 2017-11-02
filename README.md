@@ -25,14 +25,18 @@ well, (1) there are few reasons, i dont actually have a hackable PS4 Console, (2
   - int addFont(char* filename);
 
 ### How-To Methods ###
-- if you're calling these methods through C
-- `initPS4FreeType()` should be called 1st, height/width is the screen height/width, whole DrawText is a pointer to the draw method provided by your app that takes 3 paramaters int x, int y, int color e.g `orbis2dDrawPixelColor()`
-- `drawPS4FreeTypeText()` is self explaintory, x/y are screen positions, size is point per 30 ppi, color is in the format your draw method takes
-- `addFontPS4FreeType()` takes path location to otf or ttf font, on success return font_index > 0, on fail returns -1
-- `drawCustomFontPS4FreeTypeText()` works the same as drawPS4FreeTypeText() except the method requires `font_index` as provided by `addFontPS4FreeType()`
-- C++ methods work exactly the same, as they're merely wrappers for convience
-  - `PS4freetype2()` the constructor takes place instead of `initPS4FreeType()`
-  - there is no equivalent to `finishPS4FreeType()`, as it will be called automatically on deconstructor
+- **if you're using C**
+    - `initPS4FreeType(int height, int width, DrawText drawText)` should be called 1st, height/width is the screen height/width, while DrawText is a pointer to the draw method provided by your app that takes 3 parameters int x, int y, int color e.g `orbis2dWritePixelColor()`
+        - this is how this would look like `initPS4FreeType(720, 1280, &orbis2dWritePixelColor);`
+    - `drawPS4FreeTypeText(int x, int y, const char *text, int size, int color)` is self explanatory, x/y are screen positions, size is point per 30 ppi, color is in the format your draw method takes
+        - `color` is expected in RGB format `0x80000000|R<<16|G<<8|B`
+    - `addFontPS4FreeType(char* filename)` takes path location to `otf` or `ttf` font, on success return value `font_index` > 0, on fail returns -1
+    - `drawCustomFontPS4FreeTypeText(int x, int y, const char *text, int size, int color, int font_index)` works the same as `drawPS4FreeTypeText()` except the method requires `font_index` which is provided by `addFontPS4FreeType()`
+- **if you're using C++**
+    - methods work exactly the same, as they're merely wrappers for convenience
+    - `PS4freetype2(int height, int width, DrawText drawText)` the constructor takes place instead of `initPS4FreeType()`
+    - there is no equivalent to `finishPS4FreeType()`, as it will be called automatically on deconstructor
+    - since C++ methods can be overloaded `drawCustomFontText()` will be removed in-favour of an overloaded `drawText()` method
 
 ### Note ###
  - The font will look a bit fuzzy, that's most likely because we dont currently have a way to print pixels with alpha support, as such that channel is completely ignored
