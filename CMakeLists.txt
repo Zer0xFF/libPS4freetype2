@@ -13,7 +13,10 @@ endif()
 add_library(PS4freetype2
 	src/PS4freetype2.c
 	src/PS4freetype2.cpp
-)
+
+	include/PS4freetype2.h
+	include/PS4freetype2.hpp
+	)
 
 target_link_libraries(PS4freetype2 PUBLIC PS4::HEADERS freetype)
-target_include_directories(PS4freetype2 PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src" "${CMAKE_CURRENT_BINARY_DIR}/freetype2/include" "${CMAKE_CURRENT_SOURCE_DIR}/freetype2/include")
+target_include_directories(PS4freetype2 PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include" "${CMAKE_CURRENT_BINARY_DIR}/freetype2/include" "${CMAKE_CURRENT_SOURCE_DIR}/freetype2/include")
