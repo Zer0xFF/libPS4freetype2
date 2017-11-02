@@ -24,7 +24,7 @@ well, (1) there are few reasons, i dont actually have a hackable PS4 Console, (2
   - void drawCustomFontText(int x, int y, const char *text, int size, int color, int font_index);
   - int addFont(char* filename);
 
-### How-To Methods###
+### How-To Methods ###
 - if you're calling these methods through C
 - `initPS4FreeType()` should be called 1st, height/width is the screen height/width, whole DrawText is a pointer to the draw method provided by your app that takes 3 paramaters int x, int y, int color e.g `orbis2dDrawPixelColor()`
 - `drawPS4FreeTypeText()` is self explaintory, x/y are screen positions, size is point per 30 ppi, color is in the format your draw method takes
