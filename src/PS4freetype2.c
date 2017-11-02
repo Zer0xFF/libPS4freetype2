@@ -85,32 +85,32 @@ void drawCustomFontPS4FreeTypeText(int x, int y, const char *text, int size, int
 {
 	FT_GlyphSlot  slot;
 	
-		int num_chars = strlen(text);
-		
-		int pen_x = x;
-		int pen_y = y;
+	int num_chars = strlen(text);
 	
-		/* use {size}pt at 30dpi */
-		FT_Set_Char_Size(face[font_index], size * 64, 0, 30, 0);
-	
-		slot = face[font_index]->glyph;
-	
-		for (int n = 0; n < num_chars; n++)
-		{
-			/* load glyph image into the slot (erase previous one) */
-			if (FT_Load_Char(face[font_index], text[n], FT_LOAD_RENDER))
-				continue;
-	
-			/* now, draw to our target surface (convert position) */
-			draw_bitmap(&slot->bitmap,
-				pen_x + slot->bitmap_left,
-				pen_y - slot->bitmap_top + 10,
-				size, color);
-	
-			/* increment pen position */
-			pen_x += slot->advance.x >> 6;
-			pen_y += slot->advance.y >> 6;
-		}
-		return;
+	int pen_x = x;
+	int pen_y = y;
+
+	/* use {size}pt at 30dpi */
+	FT_Set_Char_Size(face[font_index], size * 64, 0, 30, 0);
+
+	slot = face[font_index]->glyph;
+
+	for (int n = 0; n < num_chars; n++)
+	{
+		/* load glyph image into the slot (erase previous one) */
+		if (FT_Load_Char(face[font_index], text[n], FT_LOAD_RENDER))
+			continue;
+
+		/* now, draw to our target surface (convert position) */
+		draw_bitmap(&slot->bitmap,
+			pen_x + slot->bitmap_left,
+			pen_y - slot->bitmap_top + 10,
+			size, color);
+
+		/* increment pen position */
+		pen_x += slot->advance.x >> 6;
+		pen_y += slot->advance.y >> 6;
+	}
+	return;
 }
 
