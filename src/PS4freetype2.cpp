@@ -15,12 +15,7 @@ PS4freetype2::~PS4freetype2()
 	finishPS4FreeType();
 }
 
-void PS4freetype2::drawText(int x, int y, const char *text, int size, int color)
-{
-	drawPS4FreeTypeText(x, y, text, size, color);
-}
-
-void PS4freetype2::drawCustomFontText(int x, int y, const char *text, int size, int color, int font_index)
+void PS4freetype2::drawText(int x, int y, const char *text, int size, int color, int font_index)
 {
 	drawCustomFontPS4FreeTypeText(x, y, text, size, color, font_index);
 }

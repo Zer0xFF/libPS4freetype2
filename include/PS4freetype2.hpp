@@ -7,7 +7,6 @@ public:
 	
 	PS4freetype2(int, int, DrawText);
 	~PS4freetype2();
-	void drawText(int x, int y, const char *text, int size, int color);
-	void drawCustomFontText(int x, int y, const char *text, int size, int color, int font_index);
+	void drawText(int x, int y, const char *text, int size, int color, int font_index = 0);
 	int addFont(char* filename);
 };
