@@ -85,7 +85,6 @@ void drawCustomFontPS4FreeTypeText(int x, int y, const char *text, int size, int
 {
 	FT_GlyphSlot  slot;
 	
-		double angle;
 		int num_chars = strlen(text);
 		
 		int pen_x = x;
