@@ -27,14 +27,14 @@ void PS4freetype2::DrawText(int x, int y, const char *text, int size, int color,
 	int pen_y = y;
 
 	/* use {size}pt at 30dpi */
-	FT_Set_Char_Size(face[font_index], size * 64, 0, 30, 0);
+	FT_Set_Char_Size(face.at(font_index), size * 64, 0, 30, 0);
 
-	slot = face[font_index]->glyph;
+	slot = face.at(font_index)->glyph;
 
 	for (int n = 0; n < num_chars; n++)
 	{
 		/* load glyph image into the slot (erase previous one) */
-		if (FT_Load_Char(face[font_index], text[n], FT_LOAD_RENDER))
+		if (FT_Load_Char(face.at(font_index), text[n], FT_LOAD_RENDER))
 			continue;
 
 		/* now, draw to our target surface (convert position) */
@@ -52,14 +52,12 @@ void PS4freetype2::DrawText(int x, int y, const char *text, int size, int color,
 
 int PS4freetype2::addFont(char* filename)
 {
-	count++;
-	face = (FT_Face *) realloc(face, count*sizeof(FT_Face));
-	if(FT_New_Face(library, filename, 0, &face[count]) == 0)
+	FT_Face l_face;
+	if(FT_New_Face(library, filename, 0, &l_face) == 0)
 	{
-		return count;
+		face.push_back(l_face);
+		return ++count;
 	}
-	count--;
-	face = (FT_Face *) realloc(face, count*sizeof(FT_Face));
 	return -1;
 }
 
@@ -71,12 +69,7 @@ int PS4freetype2::init(int height, int width, DrawCallback drawText)
 
 	if(FT_Init_FreeType(&library) == 0)
 	{
-		count = 0;
-		face = (FT_Face *) malloc(sizeof(FT_Face));
-		if(FT_New_Face(library, "/preinst/common/font/SST-Light.otf", 0, &face[0]) == 0)
-		{
-			return 0;
-		}
+		return addFont("/preinst/common/font/SST-Light.otf");
 	}
 	return -1;
 }
@@ -85,10 +78,10 @@ void PS4freetype2::finish()
 {
 	for(int i = 0; i < count + 1; i++)
 	{
-		FT_Done_Face(face[i]);
+		FT_Done_Face(face.at(i));
 	}
 	//free is currently causing segfault
-	//if(free != NULL) free(face);
+	face.clear();
 	FT_Done_FreeType(library);
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 #include <functional>
+#include <vector>
 extern "C"
 {
 	#include <ft2build.h>
@@ -15,8 +16,8 @@ private:
 	int					_height = 720;
 
 	FT_Library			library;
-	FT_Face* 			face;
-	int					count = 0;
+	std::vector<FT_Face>	face;
+	int					count = -1;
 
 	typedef std::function<void(int x, int y, int color)> DrawCallback;
 	DrawCallback			_drawText;
